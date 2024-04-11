@@ -3,12 +3,20 @@ package es.uax.ginf.tecproc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AsignaturaCompuesto implements IEvaluacionComponente {
+public class GrupoTareasCompuesto implements IEvaluacionComponente {
     private List<IEvaluacionComponente> actividades;
     private String nombre;
+    private double peso;
 
-    public AsignaturaCompuesto(String nombre) {
+    public GrupoTareasCompuesto( String nombre) {
         this.nombre = nombre;
+        this.peso = 1.0;
+        this.actividades = new ArrayList<>();
+    }
+
+    public GrupoTareasCompuesto(String nombre, double peso) {
+        this.nombre = nombre;
+        this.peso = peso;
         this.actividades = new ArrayList<>();
     }
 
@@ -28,7 +36,7 @@ public class AsignaturaCompuesto implements IEvaluacionComponente {
         for (IEvaluacionComponente actividad: actividades) {
             evaluacion += actividad.solicitaEvaluacion();
         }
-        return evaluacion;
+        return evaluacion * peso;
     }
 
     public String getNombre() {
