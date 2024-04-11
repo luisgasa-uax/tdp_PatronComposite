@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrupoTareasCompuesto implements IEvaluacionComponente {
-    private List<IEvaluacionComponente> actividades;
-    private String nombre;
-    private double peso;
+    private final List<IEvaluacionComponente> actividades;
+    private final String nombre;
+    private final double peso;
 
     public GrupoTareasCompuesto( String nombre) {
         this.nombre = nombre;
@@ -32,11 +32,17 @@ public class GrupoTareasCompuesto implements IEvaluacionComponente {
 
     @Override
     public double solicitaEvaluacion() {
+        double miEvaluacion = solicitaEvaluacionComponentes();
+        return miEvaluacion * peso;
+    }
+
+
+    private double solicitaEvaluacionComponentes() {
         double evaluacion = 0;
         for (IEvaluacionComponente actividad: actividades) {
             evaluacion += actividad.solicitaEvaluacion();
         }
-        return evaluacion * peso;
+        return evaluacion;
     }
 
     public String getNombre() {
